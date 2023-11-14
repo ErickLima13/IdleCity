@@ -7,7 +7,7 @@ public class SlotGame : ScriptableObject
 
     public Card card;
 
-    public int slotLevel;
+    public int slotLevel = 1;
     public int evolutions;
     public int totalEvolutions;
     public int multiplier = 1;
@@ -26,7 +26,7 @@ public class SlotGame : ScriptableObject
     public void InitializeSlotGame()
     {
         int multi = 1;
-        if(totalEvolutions > 0)
+        if (totalEvolutions > 0)
         {
             multi = totalEvolutions;
         }
@@ -35,6 +35,5 @@ public class SlotGame : ScriptableObject
         costUpgrade = production * multiplier * 1.5f;
         timeProduction = card.timeProduction / card.reducerTimeProduction / reducerTimeProduction;
     }
-    
 
 }
