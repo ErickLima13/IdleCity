@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 public class SlotController : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public SlotGame slotGame;
+
+    public SpriteRenderer construction;
 
     public GameObject baseHud;
     public Transform hudPos;
@@ -18,6 +22,7 @@ public class SlotController : MonoBehaviour
 
     [Header("HUD purchase")]
     public GameObject hudPurchase;
+    public SpriteRenderer bgSlot;
     public TextMeshProUGUI priceText;
     public Image iconCoinPurchase;
 
@@ -39,21 +44,54 @@ public class SlotController : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameManager.Instance;
         baseHud.transform.position = hudPos.position;
         slotGame.InitializeSlotGame();
+        productionText.text = gameManager.MonetaryConverter(goldProduced);
+
+        if (slotGame.isPurchased)
+        {
+            construction.sprite = slotGame.card.spriteCard;
+            hudActive.SetActive(true);
+            hudPurchase.SetActive(false);
+            hudUpgrade.SetActive(false);
+        }
+        else
+        {
+            hudPurchase.SetActive(true);
+            hudActive.SetActive(false);
+            hudUpgrade.SetActive(false);
+            bgSlot.sprite = gameManager.bgSlot[0];
+            priceText.text = gameManager.MonetaryConverter(slotGame.costSlot);
+        }
     }
 
     private void Update()
     {
-        if (goldProduced == 0)
+        if (slotGame.isPurchased)
         {
-            Production();
+            if (goldProduced == 0)
+            {
+                Production();
+            }
+            else if (goldProduced > 0 && slotGame.isAutoProduction)
+            {
+                Production();
+            }
         }
-        else if (goldProduced > 0 && slotGame.isAutoProduction)
+        else
         {
-            Production();
+            if (CheckGoldToBuySlot())
+            {
+                bgSlot.sprite = gameManager.bgSlot[1];
+                iconCoinPurchase.sprite = gameManager.iconCoin[1];
+            }
+            else
+            {
+                bgSlot.sprite = gameManager.bgSlot[0];
+                iconCoinPurchase.sprite = gameManager.iconCoin[0];
+            }
         }
-
     }
 
     private void Production()
@@ -66,7 +104,7 @@ public class SlotController : MonoBehaviour
         {
             tempTime = 0;
             goldProduced += slotGame.production;
-            productionText.text = GameManager.Instance.MonetaryConverter(goldProduced);
+            productionText.text = gameManager.MonetaryConverter(goldProduced);
         }
 
         if (goldProduced > 0)
@@ -81,14 +119,14 @@ public class SlotController : MonoBehaviour
 
     public void CollectGold()
     {
-        if (GameManager.Instance.currentState != GameState.Gameplay)
+        if (gameManager.currentState != GameState.Gameplay)
         {
             return;
         }
 
-        GameManager.Instance.GetCoin(goldProduced);
+        gameManager.GetCoin(goldProduced);
         goldProduced = 0;
-        productionText.text = GameManager.Instance.MonetaryConverter(goldProduced);
+        productionText.text = gameManager.MonetaryConverter(goldProduced);
     }
 
     public void UpgradeMode()
@@ -97,9 +135,10 @@ public class SlotController : MonoBehaviour
 
         if (slotGame.isPurchased)
         {
-            switch (GameManager.Instance.isUpgradeMode)
+            switch (gameManager.isUpgradeMode)
             {
                 case true:
+                    CheckSlotUpgrade();
                     hudActive.SetActive(false);
                     hudUpgrade.SetActive(true);
                     break;
@@ -111,53 +150,75 @@ public class SlotController : MonoBehaviour
         }
     }
 
+    public void CheckSlotUpgrade()
+    {
+        if (slotGame.isMaxLevel)
+        {
+            hudUpgradeImage.sprite = gameManager.bgHud[2];
+        }
+        else
+        {
+            if (gameManager.saveGame.gold >= slotGame.costUpgrade)
+            {
+                hudUpgradeImage.sprite = gameManager.bgHud[1];
+                priceEvolText.color = gameManager.textColor[1];
+            }
+            else
+            {
+                hudUpgradeImage.sprite = gameManager.bgHud[0];
+                priceEvolText.color = gameManager.textColor[0];
+            }
+        }
+    }
+
     public void UpgradeSlot()
     {
-        GameManager.Instance.GetCoin(slotGame.costUpgrade * -1);
+        gameManager.GetCoin(slotGame.costUpgrade * -1);
+        gameManager.UpdateHudSlots();
         slotGame.evolutions++;
         slotGame.totalEvolutions++;
 
-        if (slotGame.slotLevel == 1 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        if (slotGame.slotLevel == 1 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
         }
-        else if (slotGame.slotLevel == 2 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 2 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeTimeProduction();
             slotGame.isAutoProduction = true;
 
         }
-        else if (slotGame.slotLevel == 3 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 3 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
 
         }
-        else if (slotGame.slotLevel == 4 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 4 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeTimeProduction();
 
         }
-        else if (slotGame.slotLevel == 5 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 5 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
 
         }
-        else if (slotGame.slotLevel == 6 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 6 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeTimeProduction();
 
         }
-        else if (slotGame.slotLevel == 7 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 7 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
 
         }
-        else if (slotGame.slotLevel == 8 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 8 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeTimeProduction();
 
         }
-        else if (slotGame.slotLevel == 9 && slotGame.evolutions == GameManager.Instance.progressionTable[slotGame.slotLevel - 1])
+        else if (slotGame.slotLevel == 9 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
             slotGame.isMaxLevel = true;
@@ -202,21 +263,36 @@ public class SlotController : MonoBehaviour
     private void UpdateHudUpgrade()
     {
         totalEvolText.text = slotGame.totalEvolutions.ToString();
-        priceEvolText.text = GameManager.Instance.MonetaryConverter(slotGame.costUpgrade);
+        priceEvolText.text = gameManager.MonetaryConverter(slotGame.costUpgrade);
         levelSlotText.text = slotGame.slotLevel.ToString();
 
-        float fillAmount = (float)slotGame.evolutions / GameManager.Instance.progressionTable[slotGame.slotLevel - 1];
+        float fillAmount = (float)slotGame.evolutions / gameManager.progressionTable[slotGame.slotLevel - 1];
         progressUpgradeSlot.fillAmount = fillAmount;
     }
 
     private void OnMouseEnter()
     {
-        CollectGold();
+        if (gameManager.currentState == GameState.Gameplay && slotGame.isPurchased)
+        {
+            CollectGold();
+        }
+
     }
 
     private void OnMouseDown()
     {
-        CollectGold();
+        if (gameManager.currentState == GameState.Gameplay)
+        {
+            if (slotGame.isPurchased && goldProduced > 0)
+            {
+                CollectGold();
+            }
+            else if (!slotGame.isPurchased && CheckGoldToBuySlot())
+            {
+                BuySlot();
+            }
+        }
+
     }
 
     public void OnPointerDown()
@@ -234,6 +310,12 @@ public class SlotController : MonoBehaviour
 
     private IEnumerator UpgradeLoop()
     {
+        if (gameManager.saveGame.gold < slotGame.costUpgrade)
+        {
+            print("AQUI ESTOU");
+            yield break;
+        }
+
         UpgradeSlot();
 
         if (!isLoopUpgrade)
@@ -248,6 +330,27 @@ public class SlotController : MonoBehaviour
         {
             StartCoroutine(UpgradeLoop());
         }
+    }
+
+    private void BuySlot()
+    {
+        gameManager.GetCoin(slotGame.costSlot * -1);
+
+        gameManager.imageCard.sprite = slotGame.card.spriteCard;
+        gameManager.messageCard.text = "A construção <color=#FFFF00>"
+            + slotGame.card.cardName + "</color> foi construida";
+
+        gameManager.OpenCutPurchaseSlot();
+        slotGame.isPurchased = true;
+        construction.sprite = slotGame.card.spriteCard;
+        hudActive.SetActive(true);
+        hudPurchase.SetActive(false);
+        hudUpgrade.SetActive(false);
+    }
+
+    private bool CheckGoldToBuySlot()
+    {
+        return gameManager.saveGame.gold >= slotGame.costSlot;
     }
 }
 

@@ -12,6 +12,7 @@ public class ResetMySlot : MonoBehaviour
 
     public void ResetSlot()
     {
+        slotController.slotGame.costSlot = 80;
         slotController.slotGame.slotLevel = 1;
         slotController.slotGame.production = 1;
         slotController.slotGame.multiplier = 1;
@@ -21,7 +22,6 @@ public class ResetMySlot : MonoBehaviour
         slotController.slotGame.evolutions = 0;
         slotController.slotGame.isAutoProduction = false;
         slotController.slotGame.isMaxLevel = false;
-
         slotController.slotGame.InitializeSlotGame();
 
         Debug.Log("RESET");
@@ -31,7 +31,7 @@ public class ResetMySlot : MonoBehaviour
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(ResetMySlot))]
-public class HalftimeManagerEditor : Editor
+public class ResetSlotEditor : Editor
 {
     public override void OnInspectorGUI()
     {

@@ -1,21 +1,25 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum GameState
 {
     Gameplay,
-    Upgrade
+    Upgrade,
+    Cut
 }
 
 public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 {
     public GameState currentState;
+    public SaveGame saveGame;
 
     public int[] progressionTable;
 
-    public double gold;
-    public double goldEarned; // ouro acumulado
+    //public double gold;
+    //public double goldEarned; // ouro acumulado
 
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI gemText;
@@ -25,9 +29,28 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public List<SlotController> slots;
     private string[] acumulado;
 
+    [Header("Hud Upgrade")]
+    public Sprite[] bgHud;
+    public Color[] textColor;
+
+    [Header("Hud Purchase")]
+    public Sprite[] bgSlot;
+    public Sprite[] iconCoin;
+
+    [Header("Hud Purchase Slot")]
+    public GameObject painelFume;
+    public GameObject painelCut;
+    public Card card;
+    public Image imageCard;
+    public TextMeshProUGUI messageCard;
+    public Button buttonClose;
+
+
     private void Start()
     {
-        goldText.text = MonetaryConverter(gold);
+        buttonClose.onClick.AddListener(OpenCutPurchaseSlot);
+
+        goldText.text = MonetaryConverter(saveGame.gold);
 
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("terreno"))
         {
@@ -35,20 +58,15 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
     }
 
-    private void Update()
-    {
-
-    }
-
     public void GetCoin(double value)
     {
-        gold += value;
-        if (gold > 0)
+        saveGame.gold += value;
+        if (saveGame.gold > 0)
         {
-            goldEarned += value;
+            saveGame.goldEarned += value;
         }
 
-        goldText.text = MonetaryConverter(gold);
+        goldText.text = MonetaryConverter(saveGame.gold);
     }
 
     public string MonetaryConverter(double value)
@@ -146,6 +164,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public void UpgradeMode()
     {
         isUpgradeMode = !isUpgradeMode;
+        painelFume.SetActive(isUpgradeMode);
 
         switch (isUpgradeMode)
         {
@@ -160,6 +179,15 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         foreach (SlotController slotController in slots)
         {
             slotController.UpgradeMode();
+
+        }
+    }
+
+    public void UpdateHudSlots()
+    {
+        foreach (SlotController slotController in slots)
+        {
+            slotController.CheckSlotUpgrade();
         }
     }
 
@@ -170,4 +198,39 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
             currentState = newState;
         }
     }
+
+    public void OpenCutPurchaseSlot()
+    {
+        painelCut.SetActive(!painelCut.activeSelf);
+        painelFume.SetActive(painelCut.activeSelf);
+
+        switch (painelCut.activeSelf)
+        {
+            case true:
+                ChangeState(GameState.Cut);
+                break;
+            case false:
+                ChangeState(GameState.Gameplay);
+                break;
+        }
+
+
+    }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(GameManager))]
+public class ResetSaveEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        EditorGUILayout.Space(10f);
+        GameManager controller = (GameManager)target;
+        if (GUILayout.Button("Reset Save"))
+        {
+            controller.saveGame.ResetSave();
+        }
+    }
+}
+#endif

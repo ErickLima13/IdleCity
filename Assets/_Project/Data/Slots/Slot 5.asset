@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73cb9d918c0b9134aa30cfd00c60884b, type: 3}
-  m_Name: Slot 1
+  m_Name: Slot 5
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 24230abd50cb20646aab5608fbd5c034, type: 2}
+  card: {fileID: 11400000, guid: 6908203648a204b408d5aa4e95f50d3f, type: 2}
   slotLevel: 1
   evolutions: 0
   totalEvolutions: 0

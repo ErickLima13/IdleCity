@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e846b78f2a184549b7fd4ade58a7bb1, type: 3}
+  m_Name: 2 - Residencial
+  m_EditorClassIdentifier: 
+  cardName: Casa 1
+  spriteCard: {fileID: 21300000, guid: 00befcf3b0de1984abf34afe28b12019, type: 3}
+  spriteCardDisable: {fileID: 21300000, guid: 11204dd2572747a4a88a366cb7c21521, type: 3}
+  rarity: 0
+  production: 1
+  timeProduction: 0.8
+  isReleseadInitial: 1
+  isRelesead: 1
+  multiplier: 1
+  reducerTimeProduction: 1
+  cardLevel: 1
+  cardsCollected: 0
