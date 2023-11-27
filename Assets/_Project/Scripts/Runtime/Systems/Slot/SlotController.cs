@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SlotController : MonoBehaviour
 {
+    private Animator animator;
+
     private GameManager gameManager;
 
     public SlotGame slotGame;
@@ -44,6 +46,7 @@ public class SlotController : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         gameManager = GameManager.Instance;
         baseHud.transform.position = hudPos.position;
         slotGame.InitializeSlotGame();
@@ -130,13 +133,13 @@ public class SlotController : MonoBehaviour
             return;
         }
 
-        gameManager.GetCoin(goldProduced);
-        goldProduced = 0;
+        gameManager.GetCoin(goldProduced); 
         productionText.text = gameManager.MonetaryConverter(goldProduced);
-
-        GameObject temp = Instantiate(gameManager.coinPrefab, transform.position, transform.localRotation);
-        temp.GetComponent<CoinAnimation>().posY = transform.position.y;
-        temp.GetComponent<Rigidbody2D>().AddForce(new Vector2(25, 400));
+        Instantiate(gameManager.coinPrefab, transform.position, transform.localRotation);     
+        GameObject textP = Instantiate(gameManager.popUpProduction, transform.position, transform.localRotation);     
+        textP.GetComponent<PopUpText>().value = "+" + gameManager.MonetaryConverter(goldProduced);
+        animator.SetTrigger("collect");
+        goldProduced = 0;
     }
 
     public void UpgradeMode()

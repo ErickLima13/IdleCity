@@ -19,7 +19,7 @@ MonoBehaviour:
   multiplier: 1
   timeProduction: 0.8
   reducerTimeProduction: 1
-  costSlot: 80
+  costSlot: 1e+24
   production: 1
   costUpgrade: 1.5
   isPurchased: 0

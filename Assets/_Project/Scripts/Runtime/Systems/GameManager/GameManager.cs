@@ -18,9 +18,6 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     public int[] progressionTable;
 
-    //public double gold;
-    //public double goldEarned; // ouro acumulado
-
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI gemText;
 
@@ -45,7 +42,10 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public TextMeshProUGUI messageCard;
     public Button buttonClose;
 
+    [Header("Prefabs")]
     public GameObject coinPrefab;
+    public GameObject popUpProduction;
+
 
     private void Start()
     {

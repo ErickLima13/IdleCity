@@ -898,6 +898,7 @@ GameObject:
   - component: {fileID: 54588307}
   - component: {fileID: 54588306}
   - component: {fileID: 54588305}
+  - component: {fileID: 54588308}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -1013,6 +1014,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 538002950}
   priceEvolText: {fileID: 1923665655}
   levelSlotText: {fileID: 30691525}
+--- !u!95 &54588308
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54588303}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &55234702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2494,6 +2516,7 @@ GameObject:
   - component: {fileID: 241962658}
   - component: {fileID: 241962657}
   - component: {fileID: 241962656}
+  - component: {fileID: 241962659}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -2609,6 +2632,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1591499329}
   priceEvolText: {fileID: 480974555}
   levelSlotText: {fileID: 1191909272}
+--- !u!95 &241962659
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241962654}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &245417310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3785,6 +3829,7 @@ GameObject:
   - component: {fileID: 356896351}
   - component: {fileID: 356896350}
   - component: {fileID: 356896349}
+  - component: {fileID: 356896352}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -3900,6 +3945,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1590029727}
   priceEvolText: {fileID: 2027437073}
   levelSlotText: {fileID: 640799474}
+--- !u!95 &356896352
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356896347}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &357145747
 GameObject:
   m_ObjectHideFlags: 0
@@ -4366,6 +4432,7 @@ GameObject:
   - component: {fileID: 380984246}
   - component: {fileID: 380984248}
   - component: {fileID: 380984247}
+  - component: {fileID: 380984249}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -4481,6 +4548,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b75497aceb7ce42953b55783762ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &380984249
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380984244}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &420903561
 GameObject:
   m_ObjectHideFlags: 0
@@ -7784,8 +7872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.7058824}
-  m_RaycastTarget: 1
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10535,6 +10623,7 @@ GameObject:
   - component: {fileID: 784027584}
   - component: {fileID: 784027583}
   - component: {fileID: 784027582}
+  - component: {fileID: 784027585}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -10650,6 +10739,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1114244300}
   priceEvolText: {fileID: 477541652}
   levelSlotText: {fileID: 268745665}
+--- !u!95 &784027585
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784027580}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &795527889
 GameObject:
   m_ObjectHideFlags: 0
@@ -10662,6 +10772,7 @@ GameObject:
   - component: {fileID: 795527893}
   - component: {fileID: 795527892}
   - component: {fileID: 795527891}
+  - component: {fileID: 795527894}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -10777,6 +10888,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 559892216}
   priceEvolText: {fileID: 694021304}
   levelSlotText: {fileID: 1578244321}
+--- !u!95 &795527894
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795527889}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &811666880
 GameObject:
   m_ObjectHideFlags: 0
@@ -12296,6 +12428,7 @@ GameObject:
   - component: {fileID: 945614225}
   - component: {fileID: 945614224}
   - component: {fileID: 945614223}
+  - component: {fileID: 945614226}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -12411,6 +12544,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1243788451}
   priceEvolText: {fileID: 776529123}
   levelSlotText: {fileID: 1158018353}
+--- !u!95 &945614226
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945614221}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &945934028
 GameObject:
   m_ObjectHideFlags: 0
@@ -13247,6 +13401,7 @@ MonoBehaviour:
   messageCard: {fileID: 1526904159}
   buttonClose: {fileID: 1245792643}
   coinPrefab: {fileID: 8943475976136029627, guid: 52ceb3b71df023e43a260f17144d4c9d, type: 3}
+  popUpProduction: {fileID: 7782199619482828694, guid: 4e71fbe02a007a1408d840214b9b638f, type: 3}
 --- !u!4 &982778789
 Transform:
   m_ObjectHideFlags: 0
@@ -14263,6 +14418,7 @@ GameObject:
   - component: {fileID: 1087791481}
   - component: {fileID: 1087791480}
   - component: {fileID: 1087791479}
+  - component: {fileID: 1087791482}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -14378,6 +14534,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1948943744}
   priceEvolText: {fileID: 1976908789}
   levelSlotText: {fileID: 1819450328}
+--- !u!95 &1087791482
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087791477}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1093504830
 GameObject:
   m_ObjectHideFlags: 0
@@ -16364,6 +16541,7 @@ GameObject:
   - component: {fileID: 1259224446}
   - component: {fileID: 1259224445}
   - component: {fileID: 1259224444}
+  - component: {fileID: 1259224447}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -16479,6 +16657,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 580654405}
   priceEvolText: {fileID: 1577915823}
   levelSlotText: {fileID: 1811413080}
+--- !u!95 &1259224447
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259224442}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1261502643
 GameObject:
   m_ObjectHideFlags: 0
@@ -18688,6 +18887,7 @@ GameObject:
   - component: {fileID: 1500143770}
   - component: {fileID: 1500143769}
   - component: {fileID: 1500143768}
+  - component: {fileID: 1500143771}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -18803,6 +19003,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 83546725}
   priceEvolText: {fileID: 1074082219}
   levelSlotText: {fileID: 1830671839}
+--- !u!95 &1500143771
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500143766}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1518205736
 GameObject:
   m_ObjectHideFlags: 0
@@ -19689,6 +19910,7 @@ GameObject:
   - component: {fileID: 1567118118}
   - component: {fileID: 1567118117}
   - component: {fileID: 1567118116}
+  - component: {fileID: 1567118119}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -19804,6 +20026,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 733757256}
   priceEvolText: {fileID: 357145750}
   levelSlotText: {fileID: 1379379919}
+--- !u!95 &1567118119
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567118114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1569714884
 GameObject:
   m_ObjectHideFlags: 0
@@ -20862,6 +21105,7 @@ GameObject:
   - component: {fileID: 1620238431}
   - component: {fileID: 1620238430}
   - component: {fileID: 1620238429}
+  - component: {fileID: 1620238432}
   m_Layer: 0
   m_Name: SlotController
   m_TagString: Untagged
@@ -20977,6 +21221,27 @@ MonoBehaviour:
   totalEvolText: {fileID: 1122491682}
   priceEvolText: {fileID: 2018073801}
   levelSlotText: {fileID: 1949863874}
+--- !u!95 &1620238432
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620238427}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eecd91b1195408c44982361039e1990d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1625014805
 GameObject:
   m_ObjectHideFlags: 0

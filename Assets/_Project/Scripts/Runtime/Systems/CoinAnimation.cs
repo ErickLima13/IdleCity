@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinAnimation : MonoBehaviour
@@ -13,16 +11,19 @@ public class CoinAnimation : MonoBehaviour
     private void Start()
     {
         coinRb = GetComponent<Rigidbody2D>();
+
+        posY = transform.position.y;
+        coinRb.AddForce(new Vector2(25, 400));
     }
 
     private void Update()
     {
-        if(transform.position.y <= posY -0.5f && !isJump)
+        if (transform.position.y <= posY - 0.5f && !isJump)
         {
             isJump = true;
             coinRb.velocity = Vector2.zero;
             coinRb.AddForce(new Vector2(35, 300));
-            Destroy(gameObject,1f);
+            Destroy(gameObject, 1f);
         }
     }
 }
