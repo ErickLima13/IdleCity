@@ -45,6 +45,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public TextMeshProUGUI messageCard;
     public Button buttonClose;
 
+    public GameObject coinPrefab;
 
     private void Start()
     {

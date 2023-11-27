@@ -97,13 +97,19 @@ public class SlotController : MonoBehaviour
     private void Production()
     {
         tempTime += Time.deltaTime;
-        fillAmount = tempTime / slotGame.timeProduction;
+        fillAmount = tempTime / (slotGame.timeProduction /
+            gameManager.saveGame.reducerTimeBonus /
+            gameManager.saveGame.reducerTimeTemp);
         loadBar.fillAmount = fillAmount;
 
-        if (tempTime >= slotGame.timeProduction)
+        if (tempTime >= 
+            slotGame.timeProduction / gameManager.saveGame.reducerTimeBonus /
+            gameManager.saveGame.reducerTimeTemp)
         {
             tempTime = 0;
-            goldProduced += slotGame.production;
+            goldProduced += slotGame.production *
+                gameManager.saveGame.multiplierBonus *
+                gameManager.saveGame.multiplierTemp;
             productionText.text = gameManager.MonetaryConverter(goldProduced);
         }
 
@@ -127,6 +133,10 @@ public class SlotController : MonoBehaviour
         gameManager.GetCoin(goldProduced);
         goldProduced = 0;
         productionText.text = gameManager.MonetaryConverter(goldProduced);
+
+        GameObject temp = Instantiate(gameManager.coinPrefab, transform.position, transform.localRotation);
+        temp.GetComponent<CoinAnimation>().posY = transform.position.y;
+        temp.GetComponent<Rigidbody2D>().AddForce(new Vector2(25, 400));
     }
 
     public void UpgradeMode()
@@ -272,7 +282,8 @@ public class SlotController : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (gameManager.currentState == GameState.Gameplay && slotGame.isPurchased)
+        if (gameManager.currentState == GameState.Gameplay 
+            && slotGame.isPurchased && goldProduced > 0)
         {
             CollectGold();
         }
