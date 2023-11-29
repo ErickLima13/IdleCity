@@ -15,11 +15,11 @@ MonoBehaviour:
   cardName: hamburger
   spriteCard: {fileID: 21300000, guid: 5298e50b17a805942a2ac0cafa343a86, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: c2ece627d416d7445b7dfcfc468420d4, type: 3}
-  rarity: 1
+  rarity: 0
   production: 1
   timeProduction: 0.8
-  isReleseadInitial: 1
-  isRelesead: 1
+  isReleseadInitial: 0
+  isRelesead: 0
   multiplier: 1
   reducerTimeProduction: 1
   cardLevel: 1

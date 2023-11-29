@@ -18,8 +18,8 @@ MonoBehaviour:
   rarity: 0
   production: 1
   timeProduction: 0.8
-  isReleseadInitial: 1
-  isRelesead: 1
+  isReleseadInitial: 0
+  isRelesead: 0
   multiplier: 1
   reducerTimeProduction: 1
   cardLevel: 1

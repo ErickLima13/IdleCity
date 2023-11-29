@@ -17,7 +17,7 @@ public class ResetMySlot : MonoBehaviour
         slotController.slotGame.production = 1;
         slotController.slotGame.multiplier = 1;
         slotController.slotGame.reducerTimeProduction = 1;
-        slotController.slotGame.isPurchased = true;
+        slotController.slotGame.isPurchased = false;
         slotController.slotGame.totalEvolutions = 0;
         slotController.slotGame.evolutions = 0;
         slotController.slotGame.isAutoProduction = false;

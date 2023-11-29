@@ -1,13 +1,13 @@
 using UnityEngine;
 
+public enum TypeCard
+{
+    COMMON, RARE, EPIC, LEGENDARY
+}
+
 [CreateAssetMenu(fileName = "New Card", menuName = "Collection/Card")]
 public class Card : ScriptableObject
 {
-    public enum TypeCard
-    {
-        COMMON, RARE, EPIC, LEGENDARY
-    }
-
     [Header("Fixed information")]
     public string cardName;
     public Sprite spriteCard;

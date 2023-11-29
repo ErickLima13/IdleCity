@@ -17,11 +17,12 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public SaveGame saveGame;
 
     public int[] progressionTable;
+    public int[] progressionTableCard;
 
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI gemText;
 
-    public bool isUpgradeMode;
+    public bool isUpgradeMode,isCollection;
 
     public List<SlotController> slots;
     private string[] acumulado;
@@ -34,18 +35,29 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public Sprite[] bgSlot;
     public Sprite[] iconCoin;
 
-    [Header("Hud Purchase Slot")]
+    [Header("Cut")]
     public GameObject painelFume;
     public GameObject painelCut;
     public Card card;
     public Image imageCard;
     public TextMeshProUGUI messageCard;
     public Button buttonClose;
+    public GameObject painelCollection;
+
+    [Header("card info")]
+    public GameObject painelCardInfo;
+    public TextMeshProUGUI nameCardInfo;
+    public Image imageCardInfo;
+    public Image typeCardInfo;
+    public TextMeshProUGUI producionText;
+    public TextMeshProUGUI producionMinuteText;
 
     [Header("Prefabs")]
     public GameObject coinPrefab;
     public GameObject popUpProduction;
 
+    [Header("Type cards")]
+    public Sprite[] typeCards;
 
     private void Start()
     {
@@ -164,6 +176,11 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     public void UpgradeMode()
     {
+        if (currentState == GameState.Cut)
+        {
+            return;
+        }
+
         isUpgradeMode = !isUpgradeMode;
         painelFume.SetActive(isUpgradeMode);
 
@@ -214,8 +231,38 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
                 ChangeState(GameState.Gameplay);
                 break;
         }
+    }
 
+    public void OpenCollection()
+    {
+        painelCollection.SetActive(!painelCollection.activeSelf);
+        painelFume.SetActive(painelCollection.activeSelf);
 
+        switch (painelCollection.activeSelf)
+        {
+            case true:
+                ChangeState(GameState.Cut);
+
+                foreach (CardCollection c in FindObjectsOfType<CardCollection>())
+                {
+                    c.SetupCard();
+                }    
+
+                break;
+            case false:
+                ChangeState(GameState.Gameplay);
+                break;
+        }
+    }
+
+    public void OpenCardInfo(Card cardInfo)
+    {
+        painelCardInfo.SetActive(true);
+        double prod = (cardInfo.production / cardInfo.timeProduction);
+        producionText.text = MonetaryConverter(prod * 60 * 60);
+        producionMinuteText.text = MonetaryConverter(prod * 60);
+        imageCardInfo.sprite = cardInfo.spriteCard;
+        nameCardInfo.text = cardInfo.cardName;
     }
 }
 

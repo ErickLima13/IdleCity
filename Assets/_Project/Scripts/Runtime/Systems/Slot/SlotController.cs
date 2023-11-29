@@ -356,6 +356,7 @@ public class SlotController : MonoBehaviour
 
         gameManager.OpenCutPurchaseSlot();
         slotGame.isPurchased = true;
+        slotGame.card.isRelesead = true;
         construction.sprite = slotGame.card.spriteCard;
         hudActive.SetActive(true);
         hudPurchase.SetActive(false);
