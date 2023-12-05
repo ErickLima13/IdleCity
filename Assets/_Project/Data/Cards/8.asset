@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Gym
   spriteCard: {fileID: 21300000, guid: 28974f3d2f1d8524aa7f4caa36d0d0b0, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: b158eff51f860ee439660f22ceb3a9b7, type: 3}
-  rarity: 0
+  rarity: 1
   production: 1
   timeProduction: 0.8
   isReleseadInitial: 0

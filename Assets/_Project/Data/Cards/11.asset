@@ -15,9 +15,9 @@ MonoBehaviour:
   cardName: game
   spriteCard: {fileID: 21300000, guid: 64625f7343fafe845b4f196b688cece4, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: 8e0e8bc574e6b814aa1c166139fab68b, type: 3}
-  rarity: 0
-  production: 1
-  timeProduction: 0.8
+  rarity: 3
+  production: 100000000000
+  timeProduction: 5
   isReleseadInitial: 0
   isRelesead: 0
   multiplier: 1

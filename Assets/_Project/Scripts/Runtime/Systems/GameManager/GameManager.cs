@@ -22,7 +22,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI gemText;
 
-    public bool isUpgradeMode,isCollection;
+    public bool isUpgradeMode, isCollection;
 
     public List<SlotController> slots;
     private string[] acumulado;
@@ -46,11 +46,13 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     [Header("card info")]
     public GameObject painelCardInfo;
-    public TextMeshProUGUI nameCardInfo;
-    public Image imageCardInfo;
     public Image typeCardInfo;
     public TextMeshProUGUI producionText;
     public TextMeshProUGUI producionMinuteText;
+    public TextMeshProUGUI levelSlotText;
+    public CardCollection cardInfoCollection;
+    public Slider sliderSlot;
+    public Card tempCard;
 
     [Header("Prefabs")]
     public GameObject coinPrefab;
@@ -58,6 +60,17 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     [Header("Type cards")]
     public Sprite[] typeCards;
+
+    [Header("Open Case")]
+    public GameObject casePanel;
+    public OpenCase openCase;
+
+    [Header("colecao carta")]
+    public Card[] comum;
+    public Card[] raro;
+    public Card[] epico;
+    public Card[] lendario;
+
 
     private void Start()
     {
@@ -246,7 +259,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
                 foreach (CardCollection c in FindObjectsOfType<CardCollection>())
                 {
                     c.SetupCard();
-                }    
+                }
 
                 break;
             case false:
@@ -257,13 +270,122 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     public void OpenCardInfo(Card cardInfo)
     {
+        tempCard = cardInfo;
+        cardInfoCollection.card = cardInfo;
+        cardInfoCollection.SetupCard();
         painelCardInfo.SetActive(true);
-        double prod = (cardInfo.production / cardInfo.timeProduction);
+        double prod = (cardInfo.production * cardInfo.multiplier
+            / cardInfo.timeProduction / cardInfo.reducerTimeProduction);
         producionText.text = MonetaryConverter(prod * 60 * 60);
         producionMinuteText.text = MonetaryConverter(prod * 60);
-        imageCardInfo.sprite = cardInfo.spriteCard;
-        nameCardInfo.text = cardInfo.cardName;
+        sliderSlot.value = sliderSlot.minValue;
     }
+
+    public void ChangeLevelSlot()
+    {
+        int baseSlot = 1;
+        double prod = 0;
+        int multEvolucoes = 1;
+        int multTerreno = 1;
+        float redutorTempo = 1;
+        int nTerreno = (int)sliderSlot.value;
+        levelSlotText.text = nTerreno.ToString();
+
+        switch (nTerreno)
+        {
+            case 1:
+                multEvolucoes = 1;
+                multTerreno = 1;
+                redutorTempo = 1;
+                break;
+            case 2:
+                baseSlot = 1;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 2;
+                redutorTempo = 1;
+                break;
+            case 3:
+                baseSlot = 2;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 2;
+                redutorTempo = 2;
+                break;
+            case 4:
+                baseSlot = 3;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 4;
+                redutorTempo = 2;
+                break;
+            case 5:
+                baseSlot = 4;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 4;
+                redutorTempo = 4;
+                break;
+            case 6:
+                baseSlot = 5;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 6;
+                redutorTempo = 4;
+                break;
+            case 7:
+                baseSlot = 6;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 6;
+                redutorTempo = 6;
+                break;
+            case 8:
+                baseSlot = 7;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 8;
+                redutorTempo = 6;
+                break;
+            case 9:
+                baseSlot = 8;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 8;
+                redutorTempo = 8;
+                break;
+            case 10:
+                baseSlot = 9;
+                multEvolucoes = progressionTable[baseSlot - 1];
+                multTerreno = 10;
+                redutorTempo = 8;
+                break;
+
+        }
+
+        prod = ((tempCard.production * tempCard.multiplier *
+            multEvolucoes * multTerreno)
+            / (tempCard.timeProduction / tempCard.reducerTimeProduction / redutorTempo));
+        producionText.text = MonetaryConverter(prod * 60 * 60);
+        producionMinuteText.text = MonetaryConverter(prod * 60);
+
+
+    }
+
+    public void GetBooster(int boosterType)
+    {
+        casePanel.SetActive(true);
+
+        switch (boosterType)
+        {
+            case 0:
+                openCase.SetType(3, OpenCase.CaseType.Comum);
+                break;
+            case 1:
+                openCase.SetType(4, OpenCase.CaseType.rara);
+                break;
+            case 2:
+                openCase.SetType(6, OpenCase.CaseType.Epica);
+                break;
+            case 3:
+                openCase.SetType(8, OpenCase.CaseType.Lendaria);
+                break;
+        }
+    }
+
+ 
 }
 
 #if UNITY_EDITOR

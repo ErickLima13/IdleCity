@@ -20,7 +20,7 @@ public class CardCollection : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         button = GetComponent<Button>();
-        button.onClick.AddListener(InfoCard);
+        button?.onClick.AddListener(InfoCard);
 
         SetupCard();
     }
@@ -73,8 +73,6 @@ public class CardCollection : MonoBehaviour
 
     public void InfoCard()
     {
-        print("SACA SÒ");
-
         if (card.isRelesead)
         {
             gameManager.OpenCardInfo(card);
