@@ -148,12 +148,12 @@ public class OpenCase : MonoBehaviour
         if (randA >= 25)
         {
             print("OURO");
-            cartaRecompensa[idRecompensa].GetComponent<RewardInfo>().ExibirRecompensa(0, Random.Range(100, 1000));         
+            cartaRecompensa[idRecompensa].GetComponent<RewardInfo>().ExibirRecompensa(0);         
         }
         else if (randA >= 10)
         {
             print("GEMA");
-            cartaRecompensa[idRecompensa].GetComponent<RewardInfo>().ExibirRecompensa(1, Random.Range(10, 30));
+            cartaRecompensa[idRecompensa].GetComponent<RewardInfo>().ExibirRecompensa(1);
         }
         else
         {
@@ -193,22 +193,22 @@ public class OpenCase : MonoBehaviour
             case TypeCard.LEGENDARY:
                 print("RECEBI LENDARIA");
                 rInfo.carta = gameManager.lendario[Random.Range(0, gameManager.lendario.Length)];
-                rInfo.ExibirRecompensa(2, 1);
+                rInfo.ExibirRecompensa(2);
                 break;
             case TypeCard.EPIC:
                 print("RECEBI epica");
                 rInfo.carta = gameManager.epico[Random.Range(0, gameManager.epico.Length)];
-                rInfo.ExibirRecompensa(2, Random.Range(1,4));
+                rInfo.ExibirRecompensa(2);
                 break;
             case TypeCard.RARE:
                 print("RECEBI rara");
                 rInfo.carta = gameManager.raro[Random.Range(0, gameManager.raro.Length)];
-                rInfo.ExibirRecompensa(2, Random.Range(3, 10));
+                rInfo.ExibirRecompensa(2);
                 break;
             case TypeCard.COMMON:
                 print("RECEBI comum");
                 rInfo.carta = gameManager.comum[Random.Range(0, gameManager.comum.Length)];
-                rInfo.ExibirRecompensa(2, Random.Range(5, 16));
+                rInfo.ExibirRecompensa(2);
                 break;
 
         }

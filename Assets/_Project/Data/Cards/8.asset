@@ -24,3 +24,4 @@ MonoBehaviour:
   reducerTimeProduction: 1
   cardLevel: 1
   cardsCollected: 0
+  maxLevel: 0

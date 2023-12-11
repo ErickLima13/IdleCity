@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4d26c518a32ed44b2e5ee12b8e407c, type: 3}
   m_Name: New Save
   m_EditorClassIdentifier: 
-  gold: 125
-  goldEarned: -74
+  gold: 0
+  goldEarned: 0
   multiplierBonus: 1
   multiplierTemp: 1
   reducerTimeBonus: 1
   reducerTimeTemp: 1
+  custoMaletaComum: 1000
+  maletasCompradas: 0
+  gemas: 0
+  gemasAcumuladas: 0
+  idQuest: 0
+  isQuest: 1

@@ -19,8 +19,9 @@ MonoBehaviour:
   production: 1
   timeProduction: 0.8
   isReleseadInitial: 0
-  isRelesead: 0
+  isRelesead: 1
   multiplier: 1
   reducerTimeProduction: 1
   cardLevel: 1
   cardsCollected: 0
+  maxLevel: 0

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Slot 1
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: 24230abd50cb20646aab5608fbd5c034, type: 2}
-  slotLevel: 3
-  evolutions: 32
-  totalEvolutions: 62
-  multiplier: 2
-  timeProduction: 0.4
-  reducerTimeProduction: 2
+  slotLevel: 1
+  evolutions: 0
+  totalEvolutions: 0
+  multiplier: 1
+  timeProduction: 0.8
+  reducerTimeProduction: 1
   costSlot: 80
-  production: 124
-  costUpgrade: 372
+  production: 1
+  costUpgrade: 1.5
   isPurchased: 1
   isMaxLevel: 0
-  isAutoProduction: 1
+  isAutoProduction: 0

@@ -19,7 +19,7 @@ MonoBehaviour:
   production: 4
   timeProduction: 3
   isReleseadInitial: 0
-  isRelesead: 1
+  isRelesead: 0
   multiplier: 1
   reducerTimeProduction: 1
   cardLevel: 1

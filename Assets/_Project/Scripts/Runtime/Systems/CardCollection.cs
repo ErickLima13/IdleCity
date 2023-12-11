@@ -19,8 +19,11 @@ public class CardCollection : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.Instance;
-        button = GetComponent<Button>();
-        button?.onClick.AddListener(InfoCard);
+        
+        if (TryGetComponent(out button))
+        {
+            button.onClick.AddListener(ChooseCard);
+        }
 
         SetupCard();
     }
@@ -71,12 +74,13 @@ public class CardCollection : MonoBehaviour
         }
     }
 
-    public void InfoCard()
+    public void ChooseCard()
     {
-        if (card.isRelesead)
-        {
-            gameManager.OpenCardInfo(card);
-        }
+        gameManager.slotC.slotGame.card = card;
+        gameManager.slotC.slotGame.InitializeSlotGame();
+        gameManager.slotC.BuySlot();
+        gameManager.panelEscolheCarta.SetActive(false);
+
     }
 
 }

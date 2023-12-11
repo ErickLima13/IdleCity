@@ -71,16 +71,110 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public Card[] epico;
     public Card[] lendario;
 
+    [Header("evolucao carta")]
+    public GameObject painelFumeEvolucao;
+    public Image cartaEvolucao;
+    public TextMeshProUGUI mensagemEvolucao;
+
+    [Header("Maleta Comum")]
+    public TextMeshProUGUI custoMaletaTxt;
+
+    [Header("custo gemas")]
+    public int[] custoMaletasGemas;
+
+    [Header("Quest")]
+    public GameObject panelQuest;
+    public TextMeshProUGUI missaoTxt;
+    [TextArea] public string[] questDescricao;
+    public GameObject btnColecao, btnUpgrade;
+
+    [Header("Selecao carta")]
+    public SlotController slotC;
+    public GameObject panelEscolheCarta;
+
 
     private void Start()
     {
         buttonClose.onClick.AddListener(OpenCutPurchaseSlot);
-
+        custoMaletaTxt.text = MonetaryConverter(saveGame.custoMaletaComum);
         goldText.text = MonetaryConverter(saveGame.gold);
+        gemText.text = saveGame.gemas.ToString();
 
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("terreno"))
         {
             slots.Add(g.GetComponentInChildren<SlotController>());
+        }
+
+       UpdateQuest();
+    }
+
+    private void Update()
+    {
+        if (saveGame.isQuest)
+        {
+            switch (saveGame.idQuest)
+            {
+                case 0:
+                    if (saveGame.gold >= 20)
+                    {
+                        saveGame.idQuest++;
+                        UpdateQuest();
+                    }
+                    break;
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
+        }
+    }
+
+    public void MudarCarta(Card card)
+    {
+       // slotC.card = card;
+    }
+
+    public void UpdateQuest()
+    {
+        if (saveGame.isQuest)
+        {
+            switch (saveGame.idQuest)
+            {
+                case 0:
+                    btnColecao.SetActive(false);
+                    btnUpgrade.SetActive(false);
+                    break;
+                case 1:
+                case 2:
+                    btnColecao.SetActive(false);
+                    btnUpgrade.SetActive(true);
+                    break;
+                case 3:
+                    btnColecao.SetActive(true);
+                    btnUpgrade.SetActive(true);
+                    break;
+            }
+
+            if (saveGame.idQuest < questDescricao.Length)
+            {
+                panelQuest.SetActive(true);
+                missaoTxt.text = questDescricao[saveGame.idQuest];
+            }
+            else
+            {
+                panelQuest.SetActive(false);
+
+            }
+
+        }
+        else
+        {
+            panelQuest.SetActive(false);
         }
     }
 
@@ -93,6 +187,17 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
 
         goldText.text = MonetaryConverter(saveGame.gold);
+    }
+
+    public void GetGemas(int value)
+    {
+        saveGame.gemas += value;
+        if (saveGame.gemas > 0)
+        {
+            saveGame.gemasAcumuladas += value;
+        }
+
+        gemText.text = saveGame.gemas.ToString();
     }
 
     public string MonetaryConverter(double value)
@@ -246,6 +351,27 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
     }
 
+    public void FecharSelecaoCarta()
+    {
+        panelEscolheCarta.SetActive(false);
+        painelFume.SetActive(panelEscolheCarta.activeSelf);
+        ChangeState(GameState.Gameplay);
+    }
+
+    public void OpenEscolherCarta()
+    {
+        foreach (SlotController slotController in slots)
+        {
+            slotController.ControlHud(false);
+        }
+
+        panelEscolheCarta.SetActive(true);
+        painelFume.SetActive(panelEscolheCarta.activeSelf);
+        ChangeState(GameState.Cut);
+
+        
+    }
+
     public void OpenCollection()
     {
         painelCollection.SetActive(!painelCollection.activeSelf);
@@ -265,6 +391,14 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
             case false:
                 ChangeState(GameState.Gameplay);
                 break;
+        }
+    }
+
+    public void AtualizarCartaRecebida()
+    {
+        foreach (CardCollection c in FindObjectsOfType<CardCollection>())
+        {
+            c.SetupCard();
         }
     }
 
@@ -366,26 +500,59 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     public void GetBooster(int boosterType)
     {
-        casePanel.SetActive(true);
-
         switch (boosterType)
         {
             case 0:
-                openCase.SetType(3, OpenCase.CaseType.Comum);
+
+                if (saveGame.gold >= saveGame.custoMaletaComum)
+                {
+                    openCase.SetType(3, OpenCase.CaseType.Comum);
+                    GetCoin(saveGame.custoMaletaComum * -1);
+                    saveGame.GetMaleta();
+                    custoMaletaTxt.text = MonetaryConverter(saveGame.custoMaletaComum);
+                    casePanel.SetActive(true);
+
+                    if (saveGame.idQuest == 3)
+                    {
+                        saveGame.idQuest++;
+                        UpdateQuest();
+                    }
+                }
+
                 break;
             case 1:
-                openCase.SetType(4, OpenCase.CaseType.rara);
+
+                if (saveGame.gemas >= custoMaletasGemas[boosterType])
+                {
+                    openCase.SetType(4, OpenCase.CaseType.rara);
+                    casePanel.SetActive(true);
+                    GetGemas(custoMaletasGemas[boosterType] * -1);
+                }
                 break;
             case 2:
-                openCase.SetType(6, OpenCase.CaseType.Epica);
+
+                if (saveGame.gemas >= custoMaletasGemas[boosterType])
+                {
+                    openCase.SetType(6, OpenCase.CaseType.Epica);
+                    casePanel.SetActive(true);
+                    GetGemas(custoMaletasGemas[boosterType] * -1);
+                }
                 break;
             case 3:
-                openCase.SetType(8, OpenCase.CaseType.Lendaria);
+
+                if (saveGame.gemas >= custoMaletasGemas[boosterType])
+                {
+                    openCase.SetType(8, OpenCase.CaseType.Lendaria);
+                    casePanel.SetActive(true);
+                    GetGemas(custoMaletasGemas[boosterType] * -1);
+                }
                 break;
         }
+
+
     }
 
- 
+
 }
 
 #if UNITY_EDITOR

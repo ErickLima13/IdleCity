@@ -44,6 +44,9 @@ public class SlotController : MonoBehaviour
     private float delayLoop = 0.5f;
     private float delayBetweenUpgrade = 0.05f;
 
+    public bool escolherCarta;
+
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -67,6 +70,11 @@ public class SlotController : MonoBehaviour
             bgSlot.sprite = gameManager.bgSlot[0];
             priceText.text = gameManager.MonetaryConverter(slotGame.costSlot);
         }
+    }
+
+    public void ControlHud(bool value)
+    {
+        hudActive.SetActive(value);
     }
 
     private void Update()
@@ -105,7 +113,7 @@ public class SlotController : MonoBehaviour
             gameManager.saveGame.reducerTimeTemp);
         loadBar.fillAmount = fillAmount;
 
-        if (tempTime >= 
+        if (tempTime >=
             slotGame.timeProduction / gameManager.saveGame.reducerTimeBonus /
             gameManager.saveGame.reducerTimeTemp)
         {
@@ -133,10 +141,10 @@ public class SlotController : MonoBehaviour
             return;
         }
 
-        gameManager.GetCoin(goldProduced); 
+        gameManager.GetCoin(goldProduced);
         productionText.text = gameManager.MonetaryConverter(goldProduced);
-        Instantiate(gameManager.coinPrefab, transform.position, transform.localRotation);     
-        GameObject textP = Instantiate(gameManager.popUpProduction, transform.position, transform.localRotation);     
+        Instantiate(gameManager.coinPrefab, transform.position, transform.localRotation);
+        GameObject textP = Instantiate(gameManager.popUpProduction, transform.position, transform.localRotation);
         textP.GetComponent<PopUpText>().value = "+" + gameManager.MonetaryConverter(goldProduced);
         animator.SetTrigger("collect");
         goldProduced = 0;
@@ -194,6 +202,11 @@ public class SlotController : MonoBehaviour
         if (slotGame.slotLevel == 1 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
             UpgradeProduction();
+            if (gameManager.saveGame.idQuest == 1)
+            {
+                gameManager.saveGame.idQuest++;
+                gameManager.UpdateQuest();
+            }
         }
         else if (slotGame.slotLevel == 2 && slotGame.evolutions == gameManager.progressionTable[slotGame.slotLevel - 1])
         {
@@ -285,7 +298,7 @@ public class SlotController : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (gameManager.currentState == GameState.Gameplay 
+        if (gameManager.currentState == GameState.Gameplay
             && slotGame.isPurchased && goldProduced > 0)
         {
             CollectGold();
@@ -303,7 +316,27 @@ public class SlotController : MonoBehaviour
             }
             else if (!slotGame.isPurchased && CheckGoldToBuySlot())
             {
-                BuySlot();
+                if (escolherCarta)
+                {
+                    // selecao carta
+                    gameManager.slotC = this;
+                    gameManager.OpenEscolherCarta();
+                    
+
+
+                }
+                else
+                {
+                    BuySlot();
+
+                    if (gameManager.saveGame.idQuest == 2)
+                    {
+                        gameManager.saveGame.idQuest++;
+                        gameManager.UpdateQuest();
+                    }
+                }
+               
+               
             }
         }
 
@@ -346,7 +379,7 @@ public class SlotController : MonoBehaviour
         }
     }
 
-    private void BuySlot()
+    public void BuySlot()
     {
         gameManager.GetCoin(slotGame.costSlot * -1);
 
