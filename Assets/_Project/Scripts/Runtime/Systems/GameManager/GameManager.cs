@@ -1,6 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEditor;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,6 +74,8 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
     public Card[] raro;
     public Card[] epico;
     public Card[] lendario;
+    public List<Card> cartas;
+    public List<SlotGame> terrenos;
 
     [Header("evolucao carta")]
     public GameObject painelFumeEvolucao;
@@ -95,17 +101,37 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     private void Start()
     {
-        buttonClose.onClick.AddListener(OpenCutPurchaseSlot);
-        custoMaletaTxt.text = MonetaryConverter(saveGame.custoMaletaComum);
-        goldText.text = MonetaryConverter(saveGame.gold);
-        gemText.text = saveGame.gemas.ToString();
-
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("terreno"))
         {
             slots.Add(g.GetComponentInChildren<SlotController>());
         }
 
-       UpdateQuest();
+        cartas.AddRange(comum);
+        cartas.AddRange(raro);
+        cartas.AddRange(epico);
+        cartas.AddRange(lendario);
+
+        // print(Application.persistentDataPath + "/saveData.dat");
+
+        if (!File.Exists(Application.persistentDataPath + "/saveData.dat"))
+        {
+            SaveDataGame();
+            SaveLoteDataGame();
+            SaveCardDataGame();
+            LoadAll();
+        }
+        else
+        {
+            LoadAll();
+        }
+
+        buttonClose.onClick.AddListener(OpenCutPurchaseSlot);
+        custoMaletaTxt.text = MonetaryConverter(saveGame.custoMaletaComum);
+        goldText.text = MonetaryConverter(saveGame.gold);
+        gemText.text = saveGame.gemas.ToString();
+
+        UpdateQuest();
+ 
     }
 
     private void Update()
@@ -134,9 +160,11 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
     }
 
-    public void MudarCarta(Card card)
+    public void LoadAll()
     {
-       // slotC.card = card;
+        LoadDataGame();
+        LoadLoteDataGame();
+        LoadCardDataGame();
     }
 
     public void UpdateQuest()
@@ -176,6 +204,8 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         {
             panelQuest.SetActive(false);
         }
+
+        SaveDataGame();
     }
 
     public void GetCoin(double value)
@@ -187,6 +217,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
 
         goldText.text = MonetaryConverter(saveGame.gold);
+        SaveDataGame();
     }
 
     public void GetGemas(int value)
@@ -198,6 +229,7 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
         }
 
         gemText.text = saveGame.gemas.ToString();
+        SaveDataGame();
     }
 
     public string MonetaryConverter(double value)
@@ -360,16 +392,16 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     public void OpenEscolherCarta()
     {
-        foreach (SlotController slotController in slots)
-        {
-            slotController.ControlHud(false);
-        }
+        //foreach (SlotController slotController in slots)
+        //{
+        //    slotController.ControlHud(false);
+        //}
 
         panelEscolheCarta.SetActive(true);
         painelFume.SetActive(panelEscolheCarta.activeSelf);
         ChangeState(GameState.Cut);
 
-        
+
     }
 
     public void OpenCollection()
@@ -552,8 +584,231 @@ public class GameManager : PainfulSmile.Runtime.Core.Singleton<GameManager>
 
     }
 
+    public void SaveLoteDataGame()
+    {
+        int i = 0;
+        foreach (SlotGame s in terrenos)
+        {
+            bool valorInicial = false;
+            if (File.Exists(Application.persistentDataPath + "/saveLoteData" + i + ".dat"))
+            {
+                valorInicial = true;
+            }
+
+            BinaryFormatter bf = new();
+            FileStream file = File.Create(Application.persistentDataPath + "/saveLoteData" + i + ".dat");
+            LoteGameData data = new()
+            {
+                isPurchased = s.isPurchased,
+                idCarta = s.card.idCarta,
+                isMaxLevel = s.isMaxLevel,
+                evolutions = s.evolutions,
+                totalEvolutions = s.totalEvolutions,
+                timeProduction = s.timeProduction,
+                isAutoProduction = s.isAutoProduction,
+                costUpgrade = s.costUpgrade,
+                production = s.production
+
+            };
+            if (!valorInicial)
+            {
+                data.slotLevel = 1;
+                data.multiplier = 1;
+                data.reducerTimeProduction = 1;
+            }
+            else
+            {
+                data.slotLevel = s.slotLevel;
+                data.multiplier = s.multiplier;
+                data.reducerTimeProduction = s.reducerTimeProduction;
+            }
+            bf.Serialize(file, data);
+            file.Close();
+            i++;
+        }
+    }
+
+    public void LoadLoteDataGame()
+    {
+        int i = 0;
+        foreach (SlotGame s in terrenos)
+        {
+            BinaryFormatter bf = new();
+            FileStream file = File.Open(Application.persistentDataPath + "/saveLoteData" + i + ".dat", FileMode.Open);
+            LoteGameData data = (LoteGameData)bf.Deserialize(file);
+
+            s.isPurchased = data.isPurchased;
+            s.card = cartas[data.idCarta];
+            s.isMaxLevel = data.isMaxLevel;
+            s.slotLevel = data.slotLevel;
+            s.evolutions = data.evolutions;
+            s.totalEvolutions = data.totalEvolutions;
+            s.multiplier = data.multiplier;
+            s.timeProduction = data.timeProduction;
+            s.reducerTimeProduction = data.reducerTimeProduction;
+            s.isAutoProduction = data.isAutoProduction;
+            s.costUpgrade = data.costUpgrade;
+            s.production = data.production;
+
+        
+            file.Close();
+            i++;
+        }
+        foreach (SlotController slot in slots)
+        {
+            slot.Initialize();
+        }
+    }
+
+    public void SaveDataGame()
+    {
+        BinaryFormatter bf = new();
+        FileStream file = File.Create(Application.persistentDataPath + "/saveData.dat");
+        SaveGameData data = new()
+        {
+            gold = saveGame.gold,
+            goldEarned = saveGame.goldEarned,
+            gemas = saveGame.gemas,
+            gemasAcumuladas = saveGame.gemasAcumuladas,
+            maletasCompradas = saveGame.maletasCompradas,
+            custoMaletaComum = saveGame.custoMaletaComum,
+            multiplierBonus = saveGame.multiplierBonus,
+            multiplierTemp = saveGame.multiplierTemp,
+            reducerTimeBonus = saveGame.reducerTimeBonus,
+            reducerTimeTemp = saveGame.reducerTimeTemp,
+            idQuest = saveGame.idQuest,
+            isQuest = saveGame.isQuest
+        };
+
+        bf.Serialize(file, data);
+        file.Close();
+    }
+
+    public void LoadDataGame()
+    {
+        BinaryFormatter bf = new();
+        FileStream file = File.Open(Application.persistentDataPath + "/saveData.dat", FileMode.Open);
+        SaveGameData data = (SaveGameData)bf.Deserialize(file);
+
+        saveGame.gold = data.gold;
+        saveGame.goldEarned = data.goldEarned;
+        saveGame.gemas = data.gemas;
+        saveGame.gemasAcumuladas = data.gemasAcumuladas;
+        saveGame.maletasCompradas = data.maletasCompradas;
+        saveGame.custoMaletaComum = data.custoMaletaComum;
+        saveGame.multiplierBonus = data.multiplierBonus;
+        saveGame.multiplierTemp = data.multiplierTemp;
+        saveGame.reducerTimeBonus = data.reducerTimeBonus;
+        saveGame.reducerTimeTemp = data.reducerTimeTemp;
+        saveGame.idQuest = data.idQuest;
+        saveGame.isQuest = data.isQuest;
+
+        file.Close();
+    }
+
+    public void SaveCardDataGame()
+    {
+        int i = 0;
+        foreach (Card s in cartas)
+        {
+            BinaryFormatter bf = new();
+            FileStream file = File.Create(Application.persistentDataPath + "/saveCardData" + i + ".dat");
+            CartaGameData data = new()
+            {
+                isRelesead = cartas[i].isRelesead,
+                multiplier = cartas[i].multiplier,
+                reducerTimeProduction = cartas[i].reducerTimeProduction,
+                cardLevel = cartas[i].cardLevel,
+                cardsCollected = cartas[i].cardsCollected,
+                maxLevel = cartas[i].maxLevel,
+            };
+
+            bf.Serialize(file, data);
+            file.Close();
+            i++;
+        }
+    }
+
+    public void LoadCardDataGame()
+    {
+        int i = 0;
+        foreach (Card s in cartas)
+        {
+            BinaryFormatter bf = new();
+            FileStream file = File.Open(Application.persistentDataPath + "/saveCardData" + i + ".dat", FileMode.Open);
+            CartaGameData data = (CartaGameData)bf.Deserialize(file);
+
+            s.isRelesead = data.isRelesead;
+            s.multiplier = data.multiplier;
+            s.reducerTimeProduction = data.reducerTimeProduction;
+            s.cardLevel = data.cardLevel;
+            s.cardsCollected = data.cardsCollected;
+            s.maxLevel = data.maxLevel;
+
+            file.Close();
+            i++;
+        }
+    }
+
+
 
 }
+
+[Serializable]
+public class SaveGameData
+{
+    public double gold;
+    public double goldEarned; // ouro acumulado
+
+    public int multiplierBonus;
+    public int multiplierTemp;
+
+    public int reducerTimeBonus;
+    public int reducerTimeTemp;
+
+    public double custoMaletaComum;
+    public int maletasCompradas;
+
+    public int gemas;
+    public int gemasAcumuladas;
+
+    public int idQuest;
+    public bool isQuest;
+}
+
+[Serializable]
+public class LoteGameData
+{
+    public int idCarta;
+    public int slotLevel;
+    public int evolutions;
+    public int totalEvolutions;
+    public int multiplier;
+
+    public float timeProduction;
+    public float reducerTimeProduction;
+
+    public double production;
+    public double costUpgrade;
+
+    public bool isPurchased;
+    public bool isMaxLevel;
+    public bool isAutoProduction;
+
+
+}
+
+[Serializable]
+public class CartaGameData
+{
+    public bool isRelesead;
+    public int multiplier;
+    public float reducerTimeProduction;
+    public int cardLevel;
+    public int cardsCollected;
+    public bool maxLevel;
+}
+
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(GameManager))]
@@ -567,6 +822,7 @@ public class ResetSaveEditor : Editor
         if (GUILayout.Button("Reset Save"))
         {
             controller.saveGame.ResetSave();
+            controller.SaveDataGame();
         }
     }
 }

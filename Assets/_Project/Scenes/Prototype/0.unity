@@ -26460,6 +26460,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b58e7c5b07a94d049b3e5e1b74be6da8, type: 2}
   lendario:
   - {fileID: 11400000, guid: f73f6b7f2f1081a4aa771cc8e1121cf5, type: 2}
+  cartas: []
+  terrenos:
+  - {fileID: 11400000, guid: 2d9daa3c416a79d4cb44613fb69e26f1, type: 2}
+  - {fileID: 11400000, guid: 7dfc62a5241590c43bb26ffe90d99a76, type: 2}
+  - {fileID: 11400000, guid: 5d5eca9622903ac4fa2150eb950133d5, type: 2}
+  - {fileID: 11400000, guid: e9e3772665dbbd947812dcee8491f423, type: 2}
+  - {fileID: 11400000, guid: 1d10d0145822f1e48a79799bb1f78bcc, type: 2}
+  - {fileID: 11400000, guid: e01e4400d92e8fd4abfc704059c50eb6, type: 2}
+  - {fileID: 11400000, guid: 0e7d9c189fad189429c4d61a69036823, type: 2}
+  - {fileID: 11400000, guid: a9fe0e0604397af4cb103e1bf963bad0, type: 2}
+  - {fileID: 11400000, guid: 92fe51e260808074b87bb0227e164d7f, type: 2}
+  - {fileID: 11400000, guid: ddcf15bd79bd65643a012cc05014f63d, type: 2}
+  - {fileID: 11400000, guid: 0e8c552a16d590d499e04f195dec021c, type: 2}
+  - {fileID: 11400000, guid: e0e6335f92498cc49b143e707c0bfb2b, type: 2}
   painelFumeEvolucao: {fileID: 913834633}
   cartaEvolucao: {fileID: 379815597}
   mensagemEvolucao: {fileID: 787717400}

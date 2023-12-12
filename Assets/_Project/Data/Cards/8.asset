@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e846b78f2a184549b7fd4ade58a7bb1, type: 3}
   m_Name: 8
   m_EditorClassIdentifier: 
+  idCarta: 8
   cardName: Gym
   spriteCard: {fileID: 21300000, guid: 28974f3d2f1d8524aa7f4caa36d0d0b0, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: b158eff51f860ee439660f22ceb3a9b7, type: 3}

@@ -45,15 +45,24 @@ public class SlotController : MonoBehaviour
     private float delayBetweenUpgrade = 0.05f;
 
     public bool escolherCarta;
-
+    private bool isInicializado;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         gameManager = GameManager.Instance;
         baseHud.transform.position = hudPos.position;
-        slotGame.InitializeSlotGame();
         productionText.text = gameManager.MonetaryConverter(goldProduced);
+    }
+
+    public void Initialize()
+    {
+        if (gameManager == null)
+        {
+            gameManager = GameManager.Instance;
+        }
+
+        slotGame.InitializeSlotGame();
 
         if (slotGame.isPurchased)
         {
@@ -70,7 +79,10 @@ public class SlotController : MonoBehaviour
             bgSlot.sprite = gameManager.bgSlot[0];
             priceText.text = gameManager.MonetaryConverter(slotGame.costSlot);
         }
+
+        isInicializado = true;
     }
+
 
     public void ControlHud(bool value)
     {
@@ -79,6 +91,11 @@ public class SlotController : MonoBehaviour
 
     private void Update()
     {
+        if (!isInicializado)
+        {
+            return;
+        }
+
         if (slotGame.isPurchased)
         {
             if (goldProduced == 0)
@@ -253,6 +270,7 @@ public class SlotController : MonoBehaviour
 
         slotGame.InitializeSlotGame();
         UpdateHudUpgrade();
+        gameManager.SaveLoteDataGame();
 
     }
 
@@ -394,6 +412,8 @@ public class SlotController : MonoBehaviour
         hudActive.SetActive(true);
         hudPurchase.SetActive(false);
         hudUpgrade.SetActive(false);
+
+        gameManager.SaveDataGame();
     }
 
     private bool CheckGoldToBuySlot()

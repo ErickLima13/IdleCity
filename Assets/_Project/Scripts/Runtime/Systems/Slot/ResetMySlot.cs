@@ -23,6 +23,7 @@ public class ResetMySlot : MonoBehaviour
         slotController.slotGame.isAutoProduction = false;
         slotController.slotGame.isMaxLevel = false;
         slotController.slotGame.InitializeSlotGame();
+        GameManager.Instance.SaveLoteDataGame();
 
         Debug.Log("RESET");
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e846b78f2a184549b7fd4ade58a7bb1, type: 3}
   m_Name: 1 - Residencial
   m_EditorClassIdentifier: 
+  idCarta: 1
   cardName: 'Casa '
   spriteCard: {fileID: 21300000, guid: e63a01f56e5cda34e892f4a70a666e6c, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: f03ed59da1fdf914fb95729a701d6abe, type: 3}
@@ -24,3 +25,4 @@ MonoBehaviour:
   reducerTimeProduction: 1
   cardLevel: 1
   cardsCollected: 0
+  maxLevel: 0

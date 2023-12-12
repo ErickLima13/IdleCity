@@ -12,6 +12,7 @@ public class Card : ScriptableObject
     private GameManager gameManager;
 
     [Header("Fixed information")]
+    public int idCarta;
     public string cardName;
     public Sprite spriteCard;
     public Sprite spriteCardDisable;
@@ -75,6 +76,7 @@ public class Card : ScriptableObject
                 gameManager.mensagemEvolucao.text = "A construção <color=#FFFF00>" 
                     + cardName + "</color> evoluiu.";
                 gameManager.painelFumeEvolucao.SetActive(true);
+                gameManager.SaveCardDataGame();
             }
         }
         else
@@ -99,6 +101,7 @@ public class ResetCard : Editor
         if (GUILayout.Button("Reset My card"))
         {
             controller.ResetCard();
+            GameManager.Instance.SaveCardDataGame();
         }
     }
 }

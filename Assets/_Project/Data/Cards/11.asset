@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e846b78f2a184549b7fd4ade58a7bb1, type: 3}
   m_Name: 11
   m_EditorClassIdentifier: 
+  idCarta: 11
   cardName: game
   spriteCard: {fileID: 21300000, guid: 64625f7343fafe845b4f196b688cece4, type: 3}
   spriteCardDisable: {fileID: 21300000, guid: 8e0e8bc574e6b814aa1c166139fab68b, type: 3}
@@ -19,7 +20,7 @@ MonoBehaviour:
   production: 100000000000
   timeProduction: 5
   isReleseadInitial: 0
-  isRelesead: 0
+  isRelesead: 1
   multiplier: 1
   reducerTimeProduction: 1
   cardLevel: 1

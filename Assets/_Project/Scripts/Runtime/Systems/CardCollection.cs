@@ -78,9 +78,17 @@ public class CardCollection : MonoBehaviour
     {
         gameManager.slotC.slotGame.card = card;
         gameManager.slotC.slotGame.InitializeSlotGame();
-        gameManager.slotC.BuySlot();
-        gameManager.panelEscolheCarta.SetActive(false);
+      
 
+
+        if (gameManager.saveGame.idQuest == 2)
+        {
+            gameManager.saveGame.idQuest++;
+            gameManager.UpdateQuest();
+        }
+
+        gameManager.panelEscolheCarta.SetActive(false);
+        gameManager.slotC.BuySlot();
     }
 
 }
